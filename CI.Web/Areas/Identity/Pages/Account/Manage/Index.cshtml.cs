@@ -5,8 +5,9 @@ using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using CI.Data.Identity;
+using CI.Services.Abstract;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

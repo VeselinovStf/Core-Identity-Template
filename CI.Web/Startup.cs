@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CI.Data.Core;
 using CI.Data.Identity;
+using CI.Services.Abstract;
+using CI.Services.Implementations.Email;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -47,6 +49,9 @@ namespace CI.Web
         {
             // Add new App servicess
             // services.AddScoped<IAbstraction, Implementation>();
+
+
+            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         private void ConfigureMvcSettings(IServiceCollection services)
@@ -108,16 +113,17 @@ namespace CI.Web
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseStaticFiles();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
                 app.UseHttpsRedirection();
+                app.UseStaticFiles();
+                app.UseCookiePolicy();
             }
-           
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
+                   
             app.UseAuthentication();
 
             app.UseMvc(routes =>
