@@ -4,14 +4,16 @@ using CI.Data.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CI.Data.Migrations
 {
     [DbContext(typeof(CoreIdentityTemplateDbContext))]
-    partial class CoreIdentityTemplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190118142216_Identity ForgotPassword")]
+    partial class IdentityForgotPassword
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
