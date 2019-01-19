@@ -199,11 +199,12 @@ namespace CI.Web.Controllers
                 // For more information on how to enable account confirmation and password reset please 
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { code },
+                var callbackUrl = Url.Action(
+                    "ResetPassword", 
+                    "Account", 
+                    new { code }, 
                     protocol: Request.Scheme);
+                    
 
                 await _emailSender.SendEmailAsync(
                     model.Email,

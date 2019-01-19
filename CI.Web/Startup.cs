@@ -4,8 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using CI.Data.Core;
 using CI.Data.Identity;
-using CI.Services.Abstract;
-using CI.Services.Implementations.Email;
+using CI.EmailSenderService.Abstract;
+using CI.EmailSenderService.Implementations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,17 +41,24 @@ namespace CI.Web
             // MVC Settings
             ConfigureMvcSettings(services);
             // Register new services
-            ConfigureApplicationServicess(services);
+            ConfigureApplicationServices(services);
+            // Configure EmailSender -> Demo using SendGrid
+            ConfigureApplicationEmailServices(services);
           
         }
 
-        private void ConfigureApplicationServicess(IServiceCollection services)
+        private void ConfigureApplicationEmailServices(IServiceCollection services)
+        {
+            services.AddTransient<IEmailSender, EmailSender>();
+        }
+
+        private void ConfigureApplicationServices(IServiceCollection services)
         {
             // Add new App servicess
             // services.AddScoped<IAbstraction, Implementation>();
 
 
-            services.AddTransient<IEmailSender, EmailSender>();
+            
         }
 
         private void ConfigureMvcSettings(IServiceCollection services)
@@ -64,6 +71,29 @@ namespace CI.Web
             services.AddIdentity<CoreIdentityTemplateIdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<CoreIdentityTemplateDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<IdentityOptions>(options =>
+            {
+                // EmailSenderService
+                options.SignIn.RequireConfirmedEmail = true;
+                // Password settings.
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+            });
         }
 
         private void ConfigureDbConnectionSettings(IServiceCollection services)
@@ -96,7 +126,7 @@ namespace CI.Web
                 {
                     options.Cookie.HttpOnly = true;
                     options.ExpireTimeSpan = TimeSpan.FromHours(1);
-                    options.LoginPath = "";
+                    options.LoginPath = "/Account/Login";
                     options.LogoutPath = "";
                     options.Cookie = new CookieBuilder
                     {

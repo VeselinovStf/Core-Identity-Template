@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CI.Data\CI.Data.csproj" />
+    <ProjectReference Include="..\CI.EmailSenderService\CI.EmailSenderService.csproj" />
     <ProjectReference Include="..\CI.Services\CI.Services.csproj" />
   </ItemGroup>
 
