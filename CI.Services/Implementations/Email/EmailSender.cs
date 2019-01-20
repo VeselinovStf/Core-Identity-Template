@@ -1,11 +1,10 @@
-﻿
-using CI.EmailSenderService.Abstract;
+﻿using CI.Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CI.EmailSenderService.Implementations
+namespace CI.Services.Implementations.Email
 {
     //Separate this in new project or remove IEmailService From Web project
     public class EmailSender : IEmailSender

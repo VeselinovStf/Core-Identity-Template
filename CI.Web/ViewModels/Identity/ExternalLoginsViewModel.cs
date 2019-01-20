@@ -16,11 +16,5 @@ namespace CI.Web.ViewModels.Identity
         public bool ShowRemoveButton { get; set; }
 
         public string StatusMessage { get; set; }
-
-        public int Email { get; set; }
-
-        public string LoginProvider { get; set; }
-
-        public string ReturnUrl { get; set; }
     }
 }
