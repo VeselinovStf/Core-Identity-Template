@@ -20,18 +20,18 @@ namespace CI.Web.Controllers
         private readonly SignInManager<CoreIdentityTemplateIdentityUser> _signInManager;
         private readonly UserManager<CoreIdentityTemplateIdentityUser> _userManager;
         private readonly ILogger<AccountController> _logger;
-        private readonly IEmailSender _emailSender;
+        
 
         public AccountController(
             UserManager<CoreIdentityTemplateIdentityUser> userManager,
             SignInManager<CoreIdentityTemplateIdentityUser> signInManager,
-            ILogger<AccountController> logger,
-            IEmailSender emailSender)
+            ILogger<AccountController> logger
+           )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+          
         }
 
        
@@ -59,15 +59,7 @@ namespace CI.Web.Controllers
                 {
                     _logger.LogInformation("User created a new account with password.");
 
-                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Page(
-                        "/Account/ConfirmEmail",
-                        pageHandler: null,
-                        values: new { userId = user.Id, code = code },
-                        protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(model.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                  
 
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
@@ -198,17 +190,7 @@ namespace CI.Web.Controllers
 
                 // For more information on how to enable account confirmation and password reset please 
                 // visit https://go.microsoft.com/fwlink/?LinkID=532713
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                var callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { code },
-                    protocol: Request.Scheme);
-
-                await _emailSender.SendEmailAsync(
-                    model.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+            
 
                 return RedirectToPage(nameof(ForgotPasswordConfirmation));
             }

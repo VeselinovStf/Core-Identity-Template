@@ -22,21 +22,21 @@ namespace CI.Web.Controllers
         private readonly SignInManager<CoreIdentityTemplateIdentityUser> _signInManager;
         private readonly UserManager<CoreIdentityTemplateIdentityUser> _userManager;
         private readonly ILogger<ManageController> _logger;
-        private readonly IEmailSender _emailSender;
+        
         private readonly UrlEncoder _urlEncoder;
 
         public ManageController(
             UserManager<CoreIdentityTemplateIdentityUser> userManager,
             SignInManager<CoreIdentityTemplateIdentityUser> signInManager,
             ILogger<ManageController> logger,
-            IEmailSender emailSender,
+            
             UrlEncoder urlEncoder)
         {
             _urlEncoder = urlEncoder;
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
-            _emailSender = emailSender;
+          
         }
 
         private const string AuthenticatorUriFormat = "otpauth://totp/{0}:{1}?secret={2}&issuer={0}&digits=6";
@@ -289,18 +289,8 @@ namespace CI.Web.Controllers
             }
 
 
-            var userId = await _userManager.GetUserIdAsync(user);
-            var email = await _userManager.GetEmailAsync(user);
-            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-            var callbackUrl = Url.Page(
-                "/Account/ConfirmEmail",
-                pageHandler: null,
-                values: new { userId = userId, code = code },
-                protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
-                email,
-                "Confirm your email",
-                $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+        
+          
 
             StatusMessage = "Verification email sent. Please check your email.";
             return RedirectToAction(nameof(Index));
