@@ -2,6 +2,7 @@
     ViewData["Title"] = "Personal Data";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
+<partial name="_ProfileMenu" />
 
 <h4>@ViewData["Title"]</h4>
 
@@ -11,11 +12,11 @@
         <p>
             <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
         </p>
-        <form asp-page="DownloadPersonalData" method="post" class="form-group">
+        <form asp-action="DownloadPersonalData" asp-controller="Manage" method="post" class="form-group">
             <button class="btn btn-default" type="submit">Download</button>
         </form>
         <p>
-            <a asp-page="DeletePersonalData" class="btn btn-default">Delete</a>
+            <a asp-action="DeletePersonalData" asp-controller="Manage"class="btn btn-default">Delete</a>
         </p>
     </div>
 </div>

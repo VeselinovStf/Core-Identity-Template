@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CI.Data.Core;
+﻿using CI.Data.Core;
 using CI.Data.Identity;
-using CI.Services.Abstract;
-using CI.Services.Implementations.Email;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace CI.Web
 {
@@ -42,16 +36,12 @@ namespace CI.Web
             ConfigureMvcSettings(services);
             // Register new services
             ConfigureApplicationServicess(services);
-          
         }
 
         private void ConfigureApplicationServicess(IServiceCollection services)
         {
             // Add new App servicess
             // services.AddScoped<IAbstraction, Implementation>();
-
-
-            services.AddTransient<IEmailSender, EmailSender>();
         }
 
         private void ConfigureMvcSettings(IServiceCollection services)
@@ -80,7 +70,6 @@ namespace CI.Web
                  options.UseSqlServer(
                    Configuration.GetConnectionString("ProductionConnectionString")));
             }
-            
         }
 
         private void ConfigureCookieSettings(IServiceCollection services)
@@ -102,7 +91,7 @@ namespace CI.Web
                     {
                         IsEssential = true
                     };
-                }            
+                }
             );
         }
 
@@ -123,7 +112,7 @@ namespace CI.Web
                 app.UseStaticFiles();
                 app.UseCookiePolicy();
             }
-                   
+
             app.UseAuthentication();
 
             app.UseMvc(routes =>

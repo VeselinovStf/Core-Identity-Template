@@ -32,12 +32,6 @@
     <Content Update="Views\Account\Lockout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
-    <Content Update="Views\Account\LoginWith2fa.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
-    <Content Update="Views\Account\LoginWithRecoveryCode.cshtml">
-      <Pack>$(IncludeRazorContentInPack)</Pack>
-    </Content>
     <Content Update="Views\Account\Logout.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>

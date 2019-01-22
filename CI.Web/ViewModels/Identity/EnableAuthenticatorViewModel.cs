@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CI.Web.ViewModels.Identity
 {
@@ -12,9 +8,7 @@ namespace CI.Web.ViewModels.Identity
 
         public string AuthenticatorUri { get; set; }
 
-
         public string[] RecoveryCodes { get; set; }
-
 
         public string StatusMessage { get; set; }
 
@@ -23,7 +17,5 @@ namespace CI.Web.ViewModels.Identity
         [DataType(DataType.Text)]
         [Display(Name = "Verification Code")]
         public string Code { get; set; }
-
-
     }
 }

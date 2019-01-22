@@ -1,16 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CI.Web.ViewModels.Identity
 {
     public class LoginViewModel
     {
-
-   
         [Required]
         [EmailAddress]
         public string Email { get; set; }
@@ -21,9 +14,5 @@ namespace CI.Web.ViewModels.Identity
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
-
-       
-
-       
     }
 }

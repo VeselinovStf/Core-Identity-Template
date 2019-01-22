@@ -1,5 +1,3 @@
-using System;
-
 namespace CI.Web.Models
 {
     public class ErrorViewModel
